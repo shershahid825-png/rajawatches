@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Raja Watches</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+<header class="site-header">
+  <a href="index.html" class="brand">RAJA <span>WATCHES</span></a>
+  <div class="header-right">
+    <div class="header-tag">Admin Panel</div>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark or light mode" title="Toggle dark / light mode">
+      <span class="knob">☾</span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== Login screen ===== -->
+<div class="admin-login" id="login-screen">
+  <h1>Admin Login</h1>
+  <div class="field">
+    <label for="pw">Password</label>
+    <input type="password" id="pw" placeholder="Enter admin password">
+  </div>
+  <button class="btn" id="login-btn" style="width:100%">Login</button>
+  <p class="hint" style="margin-top:16px">Default password is set in js/admin.js — change it before you deploy.</p>
+</div>
+
+<!-- ===== Admin panel (hidden until login) ===== -->
+<div class="admin-shell" id="panel-screen" style="display:none">
+
+  <div class="admin-panel-header">
+    <h1 style="font-family:'Playfair Display',serif; margin:0;">Manage Store</h1>
+    <button class="btn ghost small" id="logout-btn">Logout</button>
+  </div>
+
+  <div id="status" class="status-msg"></div>
+
+  <div class="settings-box">
+    <h3>GitHub Connection</h3>
+    <p class="hint" style="margin-top:0">
+      Saved on this browser only. Your token needs "repo" (Contents: read & write) access on the store's repository.
+    </p>
+    <div class="settings-grid">
+      <div class="field" style="margin-bottom:0">
+        <label>GitHub Username / Org</label>
+        <input type="text" id="gh-owner" placeholder="e.g. raja-khan">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Repository Name</label>
+        <input type="text" id="gh-repo" placeholder="e.g. raja-watches">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Branch</label>
+        <input type="text" id="gh-branch" placeholder="main" value="main">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Personal Access Token</label>
+        <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+      </div>
+    </div>
+    <div class="edit-actions" style="margin-top:16px">
+      <button class="btn small" id="save-settings-btn">Save Connection</button>
+    </div>
+  </div>
+
+  <!-- ===== Site text, headings & links ===== -->
+  <div class="settings-box">
+    <h3>Site Text &amp; Links</h3>
+    <p class="hint" style="margin-top:0">
+      Every heading, paragraph, and link on the public site. Load, edit, then save to publish.
+    </p>
+    <div class="edit-actions" style="margin-bottom:18px">
+      <button class="btn ghost small" id="load-content-btn">Load Site Text</button>
+      <button class="btn small" id="save-content-btn">Save Site Text</button>
+    </div>
+    <div id="content-form" style="display:none">
+      <div class="row2">
+        <div class="field"><label>Brand name (bold word)</label><input type="text" id="c-brandName"></div>
+        <div class="field"><label>Brand name (accent word)</label><input type="text" id="c-brandAccent"></div>
+      </div>
+      <div class="field"><label>Header tag line</label><input type="text" id="c-headerTag"></div>
+      <div class="field"><label>Hero eyebrow (small line above heading)</label><input type="text" id="c-heroEyebrow"></div>
+      <div class="row2">
+        <div class="field"><label>Hero heading — plain part</label><input type="text" id="c-heroHeadingPlain"></div>
+        <div class="field"><label>Hero heading — highlighted part</label><input type="text" id="c-heroHeadingAccent"></div>
+      </div>
+      <div class="field"><label>Hero paragraph</label><textarea id="c-heroParagraph"></textarea></div>
+      <div class="field"><label>Hero button text</label><input type="text" id="c-heroButtonText"></div>
+      <div class="field"><label>Collection section title</label><input type="text" id="c-sectionTitle"></div>
+      <div class="field"><label>Footer tagline</label><input type="text" id="c-footerTagline"></div>
+      <div class="field">
+        <label>WhatsApp order number (international format, no + or spaces)</label>
+        <input type="text" id="c-whatsappNumber" placeholder="923001234567">
+      </div>
+      <div class="field"><label>Contact eyebrow</label><input type="text" id="c-contactEyebrow"></div>
+      <div class="field"><label>Contact title</label><input type="text" id="c-contactTitle"></div>
+      <div class="field"><label>Contact paragraph</label><textarea id="c-contactAbout"></textarea></div>
+      <div class="field"><label>Contact email</label><input type="text" id="c-contactEmail"></div>
+      <div class="row2">
+        <div class="field"><label>Instagram link</label><input type="text" id="c-socialInstagramUrl"></div>
+        <div class="field"><label>TikTok link</label><input type="text" id="c-socialTiktokUrl"></div>
+      </div>
+      <div class="field"><label>WhatsApp channel link</label><input type="text" id="c-socialWhatsappChannelUrl"></div>
+    </div>
+  </div>
+
+  <!-- ===== Products ===== -->
+  <div class="settings-box">
+    <h3>Products — Names, Descriptions, Prices &amp; Photos</h3>
+    <div class="edit-actions" style="margin-bottom:6px">
+      <button class="btn ghost small" id="load-products-btn">Load Products</button>
+    </div>
+  </div>
+
+  <div id="products-list"></div>
+
+  <div class="edit-actions">
+    <button class="btn ghost" id="add-product-btn">+ Add New Watch</button>
+    <button class="btn" id="save-all-btn">Save All Changes to GitHub</button>
+  </div>
+
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
